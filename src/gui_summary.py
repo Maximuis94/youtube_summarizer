@@ -18,6 +18,9 @@ from src.manager.prompt_manager import PromptManager
 from src.manager.settings_manager import SettingsManager
 
 
+__version__ = "1.0.0"
+
+
 class AddPromptWindow(tk.Toplevel):
     """A pop-up window for adding new summary instructions."""
     
@@ -371,7 +374,7 @@ class SummaryGUI:
             # Get selected prompt template and format it
             prompt_name = self.prompt_var.get()
             prompt_template = self.prompt_manager.get_prompt(prompt_name)
-            final_prompt = prompt_template + f"\n\nThe Closed Captions are:\n{cc_text}"
+            final_prompt = prompt_template['text'] + f"\n\nThe Closed Captions are:\n{cc_text}"
             
             filename = f"[{video_id}] - {preprocess_string(prompt_name)} - {preprocess_string(metadata['uploader'])} - {preprocess_string(title)}"
             json_file = filename + ".json"

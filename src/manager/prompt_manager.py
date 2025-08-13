@@ -6,34 +6,19 @@ import os
 from pathlib import Path
 from typing import Dict
 
-DEFAULT_PROMPT_NAME = "Default Summary"
-DEFAULT_PROMPT_TEXT = """Please summarize the following closed captioning (CC) and try to rate it across the following dimensions on a scale from 1-10:
-- Political (1 being apolitical - 10 highly political)
-- Controversial (1 being not controversial - 10 highly controversial)
-- Subjective (1 being objective - 10 being subjective/opinionated)
-For each of the ratings, provide a concise, one/two sentence explanation for the rating.
-Furthermore, please describe the CC in a few keywords (e.g. educational, entertainment, computer science).
-
-Please apply the following format:
-Video url: {video_url}
-Keywords: <KEYWORDS>
-Political rating: <POLITICAL RATING> - <EXPLANATION>
-Controversial rating: <CONTROVERSIAL RATING> - <EXPLANATION>
-Subjective rating: <SUBJECTIVE RATING> - <EXPLANATION>
-
-Summary: <SUMMARY>
-
-This is the CC of the video:
-{cc_text}
+DEFAULT_PROMPT_NAME = "Summarize verbatim (default)"
+DEFAULT_PROMPT_TEXT = """
+    Summarize the Closed Captions (cc) and extract the most important information.
+    Rather than summarizing the cc in your own words, extract the relevant sections of the cc verbatim.
 """
 
 class PromptManager:
     """
     Manages loading and saving prompts to a JSON file.
     """
-    DEFAULT_PROMPT_NAME = "Default Summary"
+    DEFAULT_PROMPT_NAME = "Summarize verbatim (default)"
     
-    def __init__(self, app_name: str = "youtube_downloader"):
+    def __init__(self, app_name: str = "youtube_summarizer"):
         self.app_name = app_name
         self.config_path = self._get_config_path()
         self.prompts = self.load_prompts()
@@ -82,6 +67,6 @@ class PromptManager:
         """Returns all loaded prompts."""
         return self.prompts
 
-    def get_prompt(self, name: str) -> str:
+    def get_prompt(self, name: str) -> Dict[str, str]:
         """Returns a specific prompt by name."""
         return self.prompts.get(name)

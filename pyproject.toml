@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "youtube_summarizer"
+version = "1.0.0"
+authors = [
+    { name = "Max Moons" },
+]
+description = "A GUI application to summarize YouTube videos using their closed captions."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Multimedia :: Video",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Text Processing :: General",
+]
+keywords = ["youtube", "summarizer", "gui", "video", "youtube-dlp", "nlp"]
+dependencies = [
+    "pyperclip==1.9.0",
+    "Requests==2.32.4",
+    "yt_dlp==2025.8.11",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/maximuis94/youtube_summarizer"
+"Repository" = "https://github.com/maximuis94/youtube_summarizer"
+
+[project.scripts]
+youtube-summarizer = "src.gui_summary:SummaryGUI.run"
+
+[tool.setuptools.packages.find]
+where = ["src"]

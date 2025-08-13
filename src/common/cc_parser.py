@@ -253,7 +253,7 @@ def process_url(url: str, output_folder: str, add_cookies: bool = False, add_com
     """
     if len(url) == 11:
         url = f"https://www.youtube.com/watch?v={url}"
-    json_file = generate_file_name(url) + ".info.json"
+    json_file = generate_file_name(url, extension=".info.json")
     
     if not os.path.exists(json_file):
         probe_url(url=url, add_cookies_file=add_cookies, add_comments=add_comments)

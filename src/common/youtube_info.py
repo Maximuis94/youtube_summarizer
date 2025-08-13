@@ -60,7 +60,8 @@ def probe_url(url: str, add_cookies_file: bool = False, add_comments: bool = Fal
     """
     out_file = generate_file_name(url, extension=".info.json")
     
-    if force_download or not force_download and time.time() - os.path.getmtime(out_file) > METADATA_FILE_LIFESPAN:
+    if os.path.exists(out_file) and (force_download or
+            not force_download and time.time() - os.path.getmtime(out_file) > METADATA_FILE_LIFESPAN):
         os.remove(out_file)
     
     if os.path.exists(out_file) and not force_download:
@@ -98,11 +99,11 @@ def probe_url(url: str, add_cookies_file: bool = False, add_comments: bool = Fal
 
 
 def get_info_json(url: str) -> Dict[str, any]:
-    """Load the *.info.json file associated with `url` and return its contents as a dict."""
+    """Load the *.info.json metadata file associated with `url` and return its contents as a dict."""
     file_name = generate_file_name(url)
     
     if not os.path.exists(file_name):
-        probe_url(url)
+        file_name = probe_url(url)
     
     return json.load(open(file_name, 'r', encoding='utf-8'))
 
